@@ -1,0 +1,8 @@
+SpeechRecognition
+pyttsx3 
+pywhatkit
+playsound==1.2.2
+gttS 
+playsound
+django
+playaudio
