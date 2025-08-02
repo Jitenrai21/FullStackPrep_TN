@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PDF Text Extractor</title>
+</head>
+<body>
+    <h2>Upload PDF to Extract Text</h2>
+    <input type="file" id="pdfUpload" accept=".pdf">
+    <button onclick="uploadPDF()">Extract Text</button>
+    
+    <pre id="outputText"></pre>
+
+    <script>
+        async function uploadPDF() {
+            const input = document.getElementById('pdfUpload');
+            if (!input.files.length) {
+                alert("Please choose a PDF file first.");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append("pdfFile", input.files[0]);
+
+            const response = await fetch("/extract/", {
+                method: "POST",
+                body: formData
+            });
+
+            const data = await response.json();
+            document.getElementById("outputText").textContent = data.text || data.error;
+        }
+    </script>
+</body>
+</html>

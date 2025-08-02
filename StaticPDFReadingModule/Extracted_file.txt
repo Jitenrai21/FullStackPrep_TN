@@ -1,0 +1,46 @@
+JITEN RAI
+Sundarijal, Kathmandu | +977-986-027-0335 | info@jitenrai.com.np | LinkedIn
+EDUCATION
+Texas College of Management & IT, Mitrapark, Kathmandu
+Bachelor of Information Technology (Hons), CGPA: 3.72 Dec 2022 - Present
++2 Levels Science (Physics)
+Xavier International College, Kalopul, Kathmandu Mar 2015 - Apr 2017
+SKILLS SUMMARY
+Programming: Python, Data Structures, Algorithms
+Libraries/Frameworks: NumPy, Pandas, Scikit-learn, TensorFlow
+Domains: Machine Learning, Deep Learning, Computer Vision, Natural Language Processing, Data Science
+Tools: Git, Jupyter Notebook, Virtual Environments, VS code
+Soft Skills: Problem-Solving, Data Analysis, Project Management, Team Collaboration
+PROJECTS
+JarvisAI Voice Assistant | LINK
+Developed a Python-based personal voice assistant to streamline daily activities through voice commands.
+Integrated speech recognition and natural language processing (NLP) for efficient user interaction using machine
+learning techniques.
+ChatterMate (AI Chatbot) | LINK
+Built an AI chatbot using Python, leveraging natural language processing (NLP) and machine learning for intent
+recognition and context-aware responses.
+Designed to handle conversational tasks with improved accuracy and user engagement.
+MCQ Paper Grader | LINK
+Developed a web-based application to automate grading of multiple-choice answer sheets using image
+processing.
+Utilized OpenCV for bubble detection, Streamlit for an interactive user interface, and Pandas for result analysis
+and visualization.
+CERTIFICATIONS
+Deep Learning Specialization, Coursera, March 2025 | LINK
+Sequence Models, DeepLearning.AI, March 19, 2025 | LINK
+Convolutional Neural Network, DeepLearning.AI, March 10, 2025 | LINK
+Structuring Machine Learning Projects, DeepLearning.AI, March 4, 2025 | LINK
+Improving Deep Neural Networks: Hyperparameter Tuning, Regularization, DeepLearning.AI, February 27, 2025
+| LINK
+Neural Networks and Deep Learning, DeepLearning.AI, February 13, 2025 | LINK
+Machine Learning Internship Completion, CodeVeda Technologies, 2024 | LINK
+ADDITIONAL INFORMATION
+Languages: English (Fluent), Nepali (Native)
+Awards/Activities:
+Winner, Texas Hackathon 2025 - Volume I Collaborated with my team to develop a virtual assistant for
+visually impaired students.
+Robotics Expo | Sep 2025 | Presented a group project on a Remote-Controlled IR Ray Sensor Light built
+using Arduino and IoT concepts.
+REFERENCES
+References available upon requests.
+
