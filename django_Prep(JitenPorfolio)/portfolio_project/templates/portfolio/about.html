@@ -1,0 +1,95 @@
+{% extends 'portfolio/base.html' %}
+{% load static %}
+{% block title %}About Me - Jiten Rai{% endblock %}
+{% block content %}
+<section class="aboutpage container">
+    <h2>About Me</h2>
+    <div class="about_intro">
+        <h3>Hi, I'm Jiten Rai</h3>
+        <p>I am a student passionate about daily, gradual, and consistent improvement.</p>
+        <p>Welcome to my world of curiosity and creativity, where passion meets purpose and drives meaningful change. I am Jiten Rai, a dedicated individual with a relentless drive to explore, innovate, and inspire. Through my journey, I have cultivated a deep appreciation for learning and growing, fueling my commitment to making a positive impact on the world around me.</p>
+    </div>
+</section>
+<section class="about_passion container">
+    <h3>Passion and Interests</h3>
+    <p>I am passionate about learning and find football interesting.</p>
+    <p>I am a passionate Python programming enthusiast with a strong interest in machine learning and data science. My curiosity drives me to explore the latest technologies, and I enjoy solving complex problems through code and data-driven solutions. Alongside my technical pursuits, I am deeply passionate about football and physical fitness, both of which inspire me to stay disciplined and focused in all aspects of my life.</p>
+</section>
+<section class="about_mission container">
+    <h3>Mission or Vision</h3>
+    <p>My mission is to achieve stability and freedom in life.</p>
+    <p>I strive to succeed, aiming for consistent growth and lessons.</p>
+    <p>Through my work, I aim to be happy and satisfied.</p>
+</section>
+<section class="resume_content container">
+    <h3>Professional Summary</h3>
+    <p>An enthusiastic learner with a passion for building intelligent systems through Python programming and machine learning. Skilled in developing data-driven solutions, with a strong focus on model accuracy and practical applications. Dedicated to creating user-friendly and impactful machine learning models, while maintaining a deep interest in innovation and problem-solving.</p>
+</section>
+<section class="resume_content container">
+    <h3>Education</h3>
+    <ul>
+        <li>School Leaving Certificate (SLC) - Loyalty Academy, 2015</li>
+        <li>+2 Levels - Xavier International College, 2017</li>
+        <li>Bachelor of Information Technology - Texas College of Management and IT, since 2022</li>
+    </ul>
+</section>
+<section class="resume_content container">
+    <h3>Work Experience</h3>
+    <div class="experience-list">
+        <ul id="experience-list">
+            {% for exp in experiences %}
+                <li>
+                    <h4>{{ exp.position }}</h4>
+                    <p>{{ exp.company }}</p>
+                    <p>{{ exp.years }} years</p>
+                </li>
+            {% endfor %}
+        </ul>
+        <div class="add-experience-form">
+            <input type="text" id="position" placeholder="Enter position">
+            <input type="text" id="company" placeholder="Enter company">
+            <input type="number" id="years" placeholder="Enter years" min="0">
+            <button id="add-new-experience">Add New Experience</button>
+        </div>
+    </div>
+    <!-- <p>An AI engineer wannabe. Beginner in Machine Learning.</p> -->
+</section>
+<section class="resume_content container">
+    <h3>Skills</h3>
+    <div class="skills-list">
+        <ul id="skills-list">
+            {% for skill in skills %}
+                <li>{{ skill.name }}</li>
+            {% endfor %}
+        </ul>
+        <input type="text" id="name" placeholder="Enter new skill">
+        <button id="add-new-skill">Add New Skill</button>
+    </div>
+</section>
+<section class="resume_content container">
+    <h3>Projects</h3>
+    <p><a href="https://github.com/Jitenrai21">My GitHub Profile</a> - Explore the various projects I have worked on.</p>
+</section>
+<section class="resume_content container">
+    <h3>Resume</h3>
+    <p><a href="https://drive.google.com/file/d/1kfws199y5eOY1emFfJUyaUsC3Ta3PET-/view?usp=sharing" target="_blank">Download My CV</a></p>
+</section>
+<section class="resume_content container">
+    <h3>Achievements and Awards</h3>
+    <ul>
+        <li>First Position in Texas College Annual ECA meet, Futsal (boys)</li>
+    </ul>
+</section>
+<section class="resume_content container">
+    <h3>References</h3>
+    <p>Available upon request.</p>
+</section>
+<section class="resume_content container">
+    <h3>Contact Information</h3>
+    <ul>
+        <li>Email: <a href="mailto:raijiten96@gmail.com">raijiten96@gmail.com</a></li>
+        <li>Phone: 9860270335</li>
+        <li>LinkedIn: <a href="https://www.linkedin.com/in/jiten-rai-42b540264/">LinkedIn Profile</a></li>
+    </ul>
+</section>
+{% endblock %}

@@ -1,0 +1,31 @@
+portfolio_project/
+├── portfolio/
+│   ├── migrations/
+│   ├── templates/portfolio/
+│   │   ├── base.html
+│   │   ├── index.html
+│   │   ├── about.html
+│   │   ├── resume.html
+│   │   └── contact.html
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── models.py
+│   ├── tests.py
+│   ├── urls.py
+│   └── views.py
+├── static/
+│   ├── css/
+│   │   └── style.css
+│   ├── images/
+│   │   ├── aboutimg.jpg
+│   │   ├── home.jpg
+│   │   ├── logo.jpg
+│   │   └── logo.png
+│   └── script.js
+├── manage.py
+└── portfolio_project/
+    ├── __init__.py
+    ├── settings.py
+    ├── urls.py
+    └── wsgi.py

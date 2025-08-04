@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}JKR{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}">
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">
+                <img src="{% static 'images/logo.png' %}" alt="Logo">
+            </div>
+            <div class="menu-icon" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </div>
+            <div class="menu">
+                <ul>
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'about' %}">About Me</a></li>
+                    <li><a href="{% url 'contact' %}">Contact Me</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    {% block content %}
+    {% endblock %}
+    <footer>
+        <div class="footer_container">
+            <div class="footer_logo">
+                <img src="{% static 'images/logo.png' %}" alt="Logo">
+            </div>
+            <div id="descript">
+                <p>A learner. <br> A Grinder. <br> An Student <br> Footballer for fun!</p>
+            </div>
+        </div>
+        <div class="f_links">
+            <ul class="social-links">
+                <li><a href="https://www.facebook.com/jiten.rai.jr10/?show_switched_toast=0&show_invite_to_follow=0&show_switched_tooltip=0&show_podcast_settings=0&show_community_review_changes=0&show_community_rollback=0&show_follower_visibility_disclosure=0"><i class="fab fa-facebook"></i></a></li>
+                <li><a href="https://www.instagram.com/jitenrai_jkr21/"><i class="fab fa-instagram"></i></a></li>
+                <li><a href="https://www.linkedin.com/in/jiten-rai-42b540264/"><i class="fab fa-linkedin"></i></a></li>
+                <li><a href="https://github.com/Jitenrai21"><i class="fab fa-github"></i></a></li>
+            </ul>
+        </div>
+        <div class="copyright">
+            <hr class="hr">
+            <p>&copy; Jiten Koyee Rai Portfolio. All rights reserved!</p>
+        </div>
+    </footer>
+    <script src="{% static 'script.js' %}"></script>
+</body>
+</html>

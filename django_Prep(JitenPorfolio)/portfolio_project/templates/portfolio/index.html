@@ -1,0 +1,51 @@
+{% extends 'portfolio/base.html' %}
+{% load static %}
+{% block title %}Home - Jiten Rai{% endblock %}
+{% block content %}
+<section class="intro">
+    <div class="container">
+        <div class="left">
+            <h2>Hey! Annyeoung!!!</h2>
+            <h3>I am Jiten Rai.</h3>
+            <p>Welcome to my fantastic portfolio. <br> Follow me on:</p>
+            <ul class="social-links">
+                <li><a href="https://www.facebook.com/jiten.rai.jr10/?show_switched_toast=0&show_invite_to_follow=0&show_switched_tooltip=0&show_podcast_settings=0&show_community_review_changes=0&show_community_rollback=0&show_follower_visibility_disclosure=0"><i class="fab fa-facebook"></i></a></li>
+                <li><a href="https://www.instagram.com/jitenrai_jkr21/"><i class="fab fa-instagram"></i></a></li>
+                <li><a href="https://www.linkedin.com/in/jiten-rai-42b540264/"><i class="fab fa-linkedin"></i></a></li>
+                <li><a href="https://github.com/Jitenrai21"><i class="fab fa-github"></i></a></li>
+            </ul>
+        </div>
+        <div class="right">
+            <img src="{% static 'images/home.jpg' %}" alt="Home Image">
+        </div>
+    </div>
+</section>
+<hr>
+<section class="skills-section">
+    <div class="container">
+        <h2>Latest Skills</h2>
+        <div class="skills-list">
+            <ul id="skills-list">
+                {% for skill in skills %}
+                    <li>{{ skill.name }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</section>
+<hr>
+<section class="experience-section">
+    <div class="container">
+        <h2>Latest Experience</h2>
+        <div class="experience-list">
+            <ul id="experience-list">
+                {% for exp in experiences %}
+                    <li>
+                        <h4>{{ exp.position }}</h4>
+                        <p>{{ exp.company }}</p>
+                        <p>{{ exp.years }} years</p>
+                    </li>
+                {% endfor %}
+    </div>
+</section>
+{% endblock %}
