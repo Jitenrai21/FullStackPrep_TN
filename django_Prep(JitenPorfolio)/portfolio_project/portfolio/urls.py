@@ -12,4 +12,7 @@ urlpatterns = [
 
     # The URL for the JavaScript to make a POST request to (e.g., http://127.0.0.1:8000/process_frame/)
     path('process_frame/', views.process_frame, name='process_frame_api'),
+    path('assistant/', views.voice_assistant_page, name='assistant'),
+    path('initialize/', views.initialize, name='initialize'),
+    path('process_command/', views.process_command, name='process_command'),
 ]
