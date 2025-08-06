@@ -49,18 +49,18 @@
                         </a>
                     </div>
                     <span>or use your account</span>
-                    <input type="email" name="email" placeholder="Email" required />
+                    <input type="text" name="email" placeholder="Email or Username" required />
                     <input type="password" name="password" placeholder="Password" required />
 				{% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-        <li class="{{ message.tags }}">{{ message }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li class="{{ message.tags }}">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
 
 
-                    <a href="#">Forgot your password?</a>
+                    <a href="{% url 'forgot_password' %}">Forgot your password?</a>
                     <button class="button-login">Login In</button>
                 </form>
             </div>

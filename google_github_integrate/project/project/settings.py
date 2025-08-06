@@ -87,7 +87,7 @@ TEMPLATES = [
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'APP': {
-            'client_id':'',
+            'client_id':'695568954276-51imvkd0n8r1tk969ag8ad8cabd9k7m7.apps.googleusercontent.com',
             'secret': '',
           
         },
@@ -112,10 +112,19 @@ SOCIALACCOUNT_ADAPTER = "demo.adapter.MySocialAccountAdapter"
 ACCOUNT_LOGOUT_REDIRECT_URL = '/signin'
 SOCIALACCOUNT_LOGOUT_REDIRECT_URL = '/signin'
 
-
+LOGIN_URL = '/signin'
 
 
 WSGI_APPLICATION = 'project.wsgi.application'
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'adhikarisachin05@gmail.com'
+EMAIL_HOST_PASSWORD = ''  
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
 # Database
