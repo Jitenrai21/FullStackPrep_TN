@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureAuth Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .user-welcome {
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .logout-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.3s;
+        }
+        
+        .logout-btn:hover {
+            background: #c82333;
+        }
+        
+        .main-content {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        
+        .welcome-section {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+        }
+        
+        .welcome-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .welcome-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+        
+        .auth-success {
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .auth-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+        
+        .dashboard-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .card-title {
+            font-size: 1.3rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+        
+        .card-description {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 2rem;
+        }
+        
+        .stat-item {
+            text-align: center;
+            color: white;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            display: block;
+        }
+        
+        .stat-label {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .welcome-title {
+                font-size: 2rem;
+            }
+            
+            .dashboard-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">🔐 SecureAuth</div>
+            <div class="nav-right">
+                <span class="user-welcome">Welcome, {{ user_name }}!</span>
+                <a href="/logout/">
+                    <button class="logout-btn">Logout</button>
+                </a>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="main-content">
+        <div class="welcome-section">
+            <h1 class="welcome-title">Dashboard</h1>
+            <p class="welcome-subtitle">Secure Face Recognition Authentication System</p>
+            
+            <div class="auth-success">
+                <div class="auth-icon">✅</div>
+                <h2>Authentication Successful!</h2>
+                <p>You have been securely authenticated using advanced face recognition technology.</p>
+            </div>
+        </div>
+        
+        <div class="dashboard-cards">
+            <div class="card">
+                <div class="card-icon">👤</div>
+                <h3 class="card-title">Profile Management</h3>
+                <p class="card-description">
+                    Manage your profile settings and security preferences. Update your information and customize your experience.
+                </p>
+            </div>
+            
+            <div class="card">
+                <div class="card-icon">🔒</div>
+                <h3 class="card-title">Security Center</h3>
+                <p class="card-description">
+                    Monitor your account security, review login history, and manage authentication methods for enhanced protection.
+                </p>
+            </div>
+            
+            <div class="card">
+                <div class="card-icon">📊</div>
+                <h3 class="card-title">Analytics</h3>
+                <p class="card-description">
+                    View detailed analytics of your authentication patterns, login frequency, and security insights.
+                </p>
+            </div>
+            
+            <div class="card">
+                <div class="card-icon">⚙️</div>
+                <h3 class="card-title">System Settings</h3>
+                <p class="card-description">
+                    Configure system preferences, notification settings, and advanced security options for optimal performance.
+                </p>
+            </div>
+            
+            <div class="card">
+                <div class="card-icon">📱</div>
+                <h3 class="card-title">Device Management</h3>
+                <p class="card-description">
+                    Manage trusted devices, review access permissions, and control device-specific security settings.
+                </p>
+            </div>
+            
+            <div class="card">
+                <div class="card-icon">📈</div>
+                <h3 class="card-title">Activity Reports</h3>
+                <p class="card-description">
+                    Access comprehensive reports on system usage, authentication attempts, and security events.
+                </p>
+            </div>
+        </div>
+        
+        <div class="stats">
+            <div class="stat-item">
+                <span class="stat-number">100%</span>
+                <span class="stat-label">Success Rate</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">< 2s</span>
+                <span class="stat-label">Auth Time</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">256-bit</span>
+                <span class="stat-label">Encryption</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">24/7</span>
+                <span class="stat-label">Monitoring</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

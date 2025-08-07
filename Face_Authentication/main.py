@@ -1,6 +1,7 @@
+import os
+
 import cv2
 import face_recognition
-import os
 import numpy as np
 
 # Load known faces
@@ -45,15 +46,27 @@ while True:
         if matches[best_match_index]:
             name = known_names[best_match_index]
 
-        top, right, bottom, left = [v * 4 for v in face_location]  # rescale to original size
+        top, right, bottom, left = [
+            v * 4 for v in face_location
+        ]  # rescale to original size
         cv2.rectangle(frame, (left, top), (right, bottom), (0, 255, 0), 2)
-        cv2.putText(frame, f"Authenticated: {name}", (left, top - 10),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.9, (255, 255, 255), 2)
+        cv2.putText(
+            frame,
+            f"Authenticated: {name}",
+            (left, top - 10),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            0.9,
+            (255, 255, 255),
+            2,
+        )
 
     cv2.imshow("Face Authentication", frame)
 
     if cv2.waitKey(1) & 0xFF == ord("q"):
         break
+
+print(known_encodings)
+print("known names:", known_names)
 
 video.release()
 cv2.destroyAllWindows()
