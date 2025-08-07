@@ -1,14 +1,20 @@
 from django.shortcuts import render, redirect
+from django.http import JsonResponse, HttpResponseBadRequest
+from django.views.decorators.csrf import csrf_exempt
 from .models import Skill, Experience, ContactSubmission
 from django.contrib import messages
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-import json  
+import json
 import base64
 import cv2
 import numpy as np
 from portfolio.modules import detector, controller, gaze_tracker, wink_detector
+import pyjokes
+import datetime
 import pyautogui
+
+# Static state to track if Jarvis is activated (shared across requests)
+class JarvisState:
+    is_jarvis_activated = False
 
 def home(request):
     skills = Skill.objects.all()
@@ -70,52 +76,23 @@ def add_experience(request):
             return JsonResponse({'success': False, 'error': 'Invalid data format'})
     return JsonResponse({'success': False, 'error': 'Invalid request method'})
 
-import json
-import base64
-import numpy as np
-import cv2
-from django.http import JsonResponse, HttpResponseBadRequest
-from django.views.decorators.csrf import csrf_exempt
-
-# You will need to replace these with your actual imports for detector,
-# gaze_tracker, controller, and wink_detector.
-# from .utils.gaze import GazeDetector
-# from .utils.wink import WinkDetector
-# from .utils.cursor_control import Controller
-# from .utils.eye_tracker import GazeTracker
-
-# Assuming these are initialized globally or passed in another way
-# detector = GazeDetector()
-# gaze_tracker = GazeTracker()
-# wink_detector = WinkDetector()
-# controller = Controller()
-
-# The @csrf_exempt decorator is crucial for POST requests from external sources
-# like a JavaScript fetch() call, as it bypasses Django's CSRF protection.
-# portfolio/views.py
-
-from django.shortcuts import render
-
 def tracker_page(request):
     """
     Renders the main tracker.html page.
     This is what the user sees when they first navigate to the URL.
     """
     return render(request, 'tracker.html')
+
 @csrf_exempt
-# Note: This view does not have any of the video processing logic.
 def process_frame(request):
-    # Check if the request is a POST request
     if request.method != 'POST':
         return HttpResponseBadRequest('Invalid request method')
 
     try:
-        # Access the raw request body and parse the JSON data
         data = json.loads(request.body)
     except json.JSONDecodeError:
         return HttpResponseBadRequest('Invalid JSON')
 
-    # Check if 'image' is in the data
     if 'image' not in data:
         return JsonResponse({'error': 'No image received'}, status=400)
 
@@ -128,8 +105,6 @@ def process_frame(request):
     frame_height, frame_width = frame.shape[:2]
     print(f'Height:{frame_height}, Width: {frame_width}')
 
-    # You need to have your detector, gaze_tracker, etc. objects available
-    # For this example, we assume they are already defined or imported.
     face_landmark_detector_instance = detector.FaceLandmarkDetector()
     landmarks = face_landmark_detector_instance.detect_landmarks(frame)
     
@@ -140,7 +115,6 @@ def process_frame(request):
     SCREEN_WIDTH, SCREEN_HEIGHT = pyautogui.size()
     cursor_instance = controller.CursorController(SCREEN_WIDTH, SCREEN_HEIGHT)
     if landmarks:
-        # Gaze estimation
         gazeTrackerInstance = gaze_tracker.GazeTracker()
         gaze, left_iris, right_iris = gazeTrackerInstance.estimate_gaze(landmarks, frame_width, frame_height)
         if gaze and left_iris and right_iris:
@@ -149,12 +123,95 @@ def process_frame(request):
             cursor_instance.move_cursor_to_iris(iris_x_norm, iris_y_norm)
             response['gaze'] = gaze
             
-        # Wink detection
         wink_instance = wink_detector.WinkDetector()
         wink = wink_instance.detect_wink(landmarks, frame_width, frame_height)
         if wink:
             cursor_instance.click_if_wink(wink)
             response['wink'] = wink
 
-    # Return the JSON response
+    return JsonResponse(response)
+
+def voice_assistant_page(request):
+    """
+    Renders the main tracker.html page.
+    This is what the user sees when they first navigate to the URL.
+    """
+    return render(request, 'jarvis.html')
+
+@csrf_exempt
+def initialize(request):
+    JarvisState.is_jarvis_activated = False
+    return JsonResponse({
+        "message": "Hello, I am Jarvis AI, your voice-commanded virtual assistant.",
+        "speak": True,
+        "open_url": None,
+        "stop_recognition": False,
+        "status": "Press and hold the spacebar to speak to Jarvis"
+    })
+
+@csrf_exempt
+def process_command(request):
+    if request.method != 'POST':
+        return HttpResponseBadRequest('Invalid request method')
+
+    try:
+        data = json.loads(request.body)
+        command = data.get("command", "").lower()
+    except json.JSONDecodeError:
+        return HttpResponseBadRequest('Invalid JSON')
+
+    response = {
+        "message": "I didn't understand that command.",
+        "speak": True,
+        "open_url": None,
+        "stop_recognition": False,
+        "status": "Press and hold the spacebar to speak to Jarvis"
+    }
+
+    if not JarvisState.is_jarvis_activated:
+        if "jarvis" in command:
+            JarvisState.is_jarvis_activated = True
+            response["message"] = "I am ready for your command."
+            response["status"] = "I am ready for your command."
+        else:
+            response["message"] = "Activate by calling me by my name Jarvis."
+            response["status"] = "Press and hold the spacebar to speak to Jarvis"
+        return JsonResponse(response)
+
+    # Process commands when activated
+    sites = [
+        {"name": "youtube", "url": "https://www.youtube.com/"},
+        {"name": "chat gpt", "url": "https://chatgpt.com/"},
+        {"name": "github account", "url": "https://github.com/Jitenrai21"}
+    ]
+    for site in sites:
+        if f"open {site['name']}" in command:
+            response["message"] = f"Opening {site['name']}"
+            response["open_url"] = site["url"]
+            return JsonResponse(response)
+
+    if "how are you" in command:
+        response["message"] = "I am doing great, How are you?"
+    elif "hello" in command:
+        response["message"] = "Hello there. How can I help you today?"
+    elif "soul mate" in command:
+        response["message"] = "I believe her name is Inez."
+    elif "your name" in command:
+        response["message"] = "It's so silly for you to ask again. My name is Jarvis."
+    elif "old are you" in command:
+        response["message"] = "I have been created quite a while ago. By Jiten Rai, of course!"
+    elif "time now" in command:
+        time = datetime.datetime.now().strftime("%I:%M %p")
+        response["message"] = f"The time is {time}"
+    elif "swift" in command:
+        response["message"] = "Opening Swift video"
+        response["open_url"] = "https://www.youtube.com/watch?v=X_e5z_XrlzY&list=PLe9t8KT-SdWXaS4thPTG66mazDoJ2-BJq&index=3"
+    elif "joke" in command:
+        response["message"] = pyjokes.get_joke(language="en", category="all")
+    elif "exit" in command:
+        JarvisState.is_jarvis_activated = False
+        response["message"] = "I am always at your service. Come again."
+        response["stop_recognition"] = True
+        response["status"] = "Press and hold the spacebar to speak to Jarvis"
+
     return JsonResponse(response)
