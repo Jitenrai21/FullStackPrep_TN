@@ -11,6 +11,28 @@ from portfolio.modules import detector, controller, gaze_tracker, wink_detector
 import pyjokes
 import datetime
 import pyautogui
+import google.generativeai as genai
+import os
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
+
+# Configure Gemini API
+genai.configure(api_key=os.getenv('GOOGLE_API_KEY'))
+model = genai.GenerativeModel('gemini-1.5-flash')
+
+# In-memory session store for chat
+chat_sessions = {}
+
+# Available personas
+persona_options = {
+    "Isaac Newton": "Mathematician and physicist",
+    "Marie Curie": "Pioneering scientist in radioactivity",
+    "William Shakespeare": "English playwright and poet",
+    "Adam Smith": "Father of modern economics",
+    "Alan Turing": "Father of computer science"
+}
 
 # Static state to track if Jarvis is activated (shared across requests)
 class JarvisState:
@@ -215,3 +237,67 @@ def process_command(request):
         response["status"] = "Press and hold the spacebar to speak to Jarvis"
 
     return JsonResponse(response)
+
+def chatbot(request):
+    """
+    Renders the chatbot page (index.html from FastAPI).
+    """
+    return render(request, 'chat.html')
+
+@csrf_exempt
+def chat(request):
+    """
+    Handles chat requests, integrating with the Gemini API.
+    """
+    if request.method != 'POST':
+        return HttpResponseBadRequest('Invalid request method')
+
+    try:
+        data = json.loads(request.body)
+        session_id = data.get('session_id')
+        persona = data.get('persona')
+        message = data.get('message')
+    except json.JSONDecodeError:
+        return JsonResponse({'error': 'Invalid JSON'}, status=400)
+
+    if not all([session_id, persona, message]):
+        return JsonResponse({'error': 'Missing session_id, persona, or message'}, status=400)
+
+    if persona not in persona_options:
+        return JsonResponse({'error': 'Invalid persona'}, status=400)
+
+    if session_id not in chat_sessions:
+        chat_sessions[session_id] = {
+            "persona": persona,
+            "chat_history": [],
+            "gemini_chat_session": model.start_chat(history=[])
+        }
+
+    if chat_sessions[session_id]["persona"] != persona:
+        chat_sessions[session_id]["persona"] = persona
+        chat_sessions[session_id]["chat_history"] = []
+        chat_sessions[session_id]["gemini_chat_session"] = model.start_chat(history=[])
+
+    print(f"Session ID: {session_id}")
+    print(f"Chat History: {chat_sessions[session_id]['chat_history']}")
+    print(f"Persona: {chat_sessions[session_id]['persona']}")
+
+    try:
+        with open('prompt_template.txt', 'r', encoding="utf-8") as file:
+            prompt_template = file.read().strip()
+    except FileNotFoundError:
+        return JsonResponse({'error': 'Prompt template not found'}, status=500)
+
+    persona_instruction = prompt_template.format(
+        persona_name=persona,
+        persona_description=persona_options[persona]
+    )
+    prompt = persona_instruction + "\n\nUser: " + message
+
+    try:
+        response = chat_sessions[session_id]["gemini_chat_session"].send_message(prompt)
+        chat_sessions[session_id]["chat_history"].append(("User", message))
+        chat_sessions[session_id]["chat_history"].append((persona, response.text))
+        return JsonResponse({'response': response.text})
+    except Exception as e:
+        return JsonResponse({'error': f'Error: {str(e)}'}, status=500)

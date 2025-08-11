@@ -15,4 +15,6 @@ urlpatterns = [
     path('assistant/', views.voice_assistant_page, name='assistant'),
     path('initialize/', views.initialize, name='initialize'),
     path('process_command/', views.process_command, name='process_command'),
+    path('chatbot/', views.chatbot, name='chatbot'),
+    path('chat/', views.chat, name='chat'),
 ]

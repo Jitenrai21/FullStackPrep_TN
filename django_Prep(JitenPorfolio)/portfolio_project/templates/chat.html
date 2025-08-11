@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini Chatbot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="{% static 'chat.js' %}?v=1" defer></script>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .chat-container { max-height: 400px; overflow-y: auto; }
+        .chat-message { margin: 10px; padding: 10px; border-radius: 8px; }
+        .user-message { background-color: #d1e7dd; text-align: right; }
+        .bot-message { background-color: #f8d7da; text-align: left; }
+        #mic-btn.listening { background-color: #ef4444; }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-2xl">
+        <h1 class="text-2xl font-bold mb-4 text-center">Gemini Chatbot</h1>
+        <div class="mb-4">
+            <label for="persona" class="block text-sm font-medium text-gray-700">Select Persona:</label>
+            <select id="persona" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                <option value="Isaac Newton">Isaac Newton - Mathematician and physicist</option>
+                <option value="Marie Curie">Marie Curie - Pioneering scientist in radioactivity</option>
+                <option value="William Shakespeare">William Shakespeare - English playwright and poet</option>
+                <option value="Adam Smith">Adam Smith - Father of modern economics</option>
+                <option value="Alan Turing">Alan Turing - Father of computer science</option>
+            </select>
+        </div>
+        <div class="mb-4">
+            <label for="enable-speech" class="flex items-center text-sm font-medium text-gray-700">
+                <input type="checkbox" id="enable-speech" class="mr-2" checked>
+                Enable Text-to-Speech Output
+            </label>
+        </div>
+        <div class="chat-container border p-4 rounded-md bg-gray-50 mb-4">
+            <div id="chat-output"></div>
+        </div>
+        <div class="flex">
+            <input type="text" id="user-input" class="flex-1 p-2 border border-gray-300 rounded-l-md" placeholder="Type your message...">
+            <button id="send-btn" class="p-2 bg-blue-500 text-white rounded-r-md hover:bg-blue-600">Send</button>
+            <button id="mic-btn" class="p-2 bg-gray-500 text-white rounded-md ml-2 hover:bg-gray-600" title="Use voice input">🎙️</button>
+        </div>
+        <p id="error-message" class="text-red-500 mt-2 hidden"></p>
+        <p id="voice-status" class="text-gray-600 mt-2 hidden"></p>
+        <p id="speech-support" class="text-gray-600 mt-2 hidden"></p>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            console.log("DOM loaded, initializing chatAPI");
+            if (window.chatAPI && typeof window.chatAPI.init === "function") {
+                window.chatAPI.init();
+            } else {
+                console.error("chatAPI not available");
+                document.getElementById("error-message").textContent = "Failed to load chat functionality. Please refresh the page.";
+                document.getElementById("error-message").classList.remove("hidden");
+            }
+        });
+    </script>
+</body>
+</html>
