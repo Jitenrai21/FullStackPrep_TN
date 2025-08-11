@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-#9di=il12_m%$$#a43_g@p0_fr0ml7urs8)*t=c3-qzioglz6c
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -51,6 +51,7 @@ INSTALLED_APPS = [
 AUTHENTICATION_BACKENDS = [
     
     'allauth.account.auth_backends.AuthenticationBackend', 
+    'django.contrib.auth.backends.ModelBackend',
 ]
 AUTH_USER_MODEL =  "demo.CustomUser"
 
@@ -87,7 +88,7 @@ TEMPLATES = [
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'APP': {
-            'client_id':'695568954276-51imvkd0n8r1tk969ag8ad8cabd9k7m7.apps.googleusercontent.com',
+            'client_id':'',
             'secret': '',
           
         },
@@ -106,11 +107,14 @@ SOCIALACCOUNT_PROVIDERS = {
    
 }
 
+
+
 SOCIALACCOUNT_LOGIN_ON_GET=True
 LOGIN_REDIRECT_URL = 'index'
 SOCIALACCOUNT_ADAPTER = "demo.adapter.MySocialAccountAdapter"
 ACCOUNT_LOGOUT_REDIRECT_URL = '/signin'
 SOCIALACCOUNT_LOGOUT_REDIRECT_URL = '/signin'
+SOCIALACCOUNT_EMAIL_VERIFICATION = "none"
 
 LOGIN_URL = '/signin'
 

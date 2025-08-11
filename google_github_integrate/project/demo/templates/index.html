@@ -1,20 +1,45 @@
+{% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Home Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Welcome</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>Welcome, {{ request.user.username }}!</h1>
-    <a href="{% url 'logout' %}">Logout</a>
+    <!-- Navbar -->
+    <div class="navbar">
+        <h1>My Website</h1>
+        <div>
+            <a href="#">Home</a>
+            <a href="#">Profile</a>
+            <a href="{% url 'logout' %}">Logout</a>
+        </div>
+    </div>
 
-    {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-                <li class="{{ message.tags }}">{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+    <!-- Main Content -->
+    <div class="container">
+        <h2>Welcome, {{ request.user.username }}!</h2>
+        <p>You are successfully logged in 🎉</p>
 
-    <p>You are logged in.</p>
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li class="{{ message.tags }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 My Website. All rights reserved.</p>
+        <p>
+            <a href="#">Privacy Policy</a> |
+            <a href="#">Terms of Service</a>
+        </p>
+    </footer>
 </body>
 </html>

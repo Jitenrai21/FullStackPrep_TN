@@ -1,27 +1,29 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Verify OTP</title>
-  <link rel="stylesheet" href="{% static 'style.css' %}">
+  <link rel="stylesheet" href="{% static 'login.css' %}">
 </head>
 <body>
-<div class="login-cont">
-  <div class="container">
-    <form method="post" action="{% url 'verify_otp' %}">
-      {% csrf_token %}
-      <h2>Verify OTP</h2>
-      <input type="text" name="otp" placeholder="Enter OTP" required>
-      {% if messages %}
-      <ul class="messages">
-        {% for message in messages %}
-        <li class="{{ message.tags }}">{{ message }}</li>
-        {% endfor %}
-      </ul>
-      {% endif %}
-      <button class="button-login">Verify</button>
-    </form>
+  <div class="login-cont">
+    <div class="container">
+      <form method="post" action="{% url 'verify_otp' %}">
+        {% csrf_token %}
+        <h2>Verify OTP</h2>
+        <input type="text" name="otp" placeholder="Enter OTP" required>
+        {% if messages %}
+          <ul class="messages">
+            {% for message in messages %}
+              <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+        <button class="button-login">Verify</button>
+      </form>
+    </div>
   </div>
-</div>
 </body>
 </html>

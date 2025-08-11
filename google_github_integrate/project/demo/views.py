@@ -7,6 +7,9 @@ from django.contrib.auth import get_user_model
 import random
 from django.core.mail import send_mail
 from django.conf import settings
+from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ValidationError
+
 
 
 User = get_user_model() 
@@ -34,6 +37,14 @@ def signup(request):
         email = request.POST.get('email')
         password = request.POST.get('password')
 
+        # Validate password
+        try:
+            validate_password(password)
+        except ValidationError as e:
+            for error in e.messages:
+                messages.error(request, error, extra_tags='signup')
+            return redirect('signin')
+
         if User.objects.filter(email=email).exists():
             messages.error(request, "Email already registered.", extra_tags='signup')
             return redirect('signin')
@@ -44,6 +55,7 @@ def signup(request):
         return redirect('signin')
 
     return redirect('signin')
+
 
 from django.template.context_processors import csrf
 
@@ -121,6 +133,14 @@ def reset_password(request):
     if request.method == 'POST':
         email = request.session.get('reset_email')
         new_password = request.POST.get('password')
+
+        # Validate new password
+        try:
+            validate_password(new_password)
+        except ValidationError as e:
+            for error in e.messages:
+                messages.error(request, error)
+            return redirect('reset_password')
 
         try:
             user = User.objects.get(email=email)
