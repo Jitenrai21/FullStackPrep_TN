@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>eSewa Payment Form</title>
+</head>
+<body>
+    <form action="https://rc-epay.esewa.com.np/api/epay/main/v2/form" method="POST">
+        <input type="text" name="amount" value="{{ amount }}" required>
+        <input type="text" name="tax_amount" value="{{ tax_amount }}" required>
+        <input type="text" name="total_amount" value="{{ total_amount }}" required>
+        <input type="text" name="transaction_uuid" value="{{ transaction_uuid }}" required>
+        <input type="text" name="product_code" value="{{ product_code }}" required>
+        <input type="text" name="product_service_charge" value="{{ product_service_charge }}" required>
+        <input type="text" name="product_delivery_charge" value="{{ product_delivery_charge }}" required>
+        <input type="text" name="success_url" value="{{ success_url }}" required>
+        <input type="text" name="failure_url" value="{{ failure_url }}" required>
+        <input type="text" name="signed_field_names" value="{{ signed_field_names }}" required>
+        <input type="text" name="signature" value="{{ signature }}" required>
+        <input value="Pay with eSewa" type="submit">
+    </form>
+</body>
+</html>
