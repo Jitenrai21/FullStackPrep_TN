@@ -1,0 +1,79 @@
+ body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f6fa;
+            color: #333;
+        }
+        /* Navbar */
+        .navbar {
+            background: linear-gradient(90deg, #4f46e5, #6d28d9);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+        .navbar h1 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .navbar a:hover {
+            color: #d1d5db;
+        }
+        /* Main content */
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .container h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #4f46e5;
+        }
+        .messages {
+            list-style: none;
+            padding: 0;
+            margin-top: 15px;
+        }
+        .messages li {
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 8px;
+        }
+        .messages li.success {
+            background-color: #d1fae5;
+            color: #065f46;
+        }
+        .messages li.error {
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+        /* Footer */
+        footer {
+            background: #1f2937;
+            color: #d1d5db;
+            padding: 1rem 2rem;
+            text-align: center;
+            margin-top: 50px;
+        }
+        footer a {
+            color: #9ca3af;
+            text-decoration: none;
+            margin: 0 8px;
+        }
+        footer a:hover {
+            color: white;
+        }

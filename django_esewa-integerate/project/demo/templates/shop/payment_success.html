@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Order Success{% endblock %}
+{% block content %}
+<div class="container mt-5 text-center">
+    <div class="alert alert-success p-4 rounded shadow">
+        <h2>✅ Thank You for Your Purchase!</h2>
+        <p>Your order <strong>#{{ order.id }}</strong> has been confirmed.</p>
+        <p>We’ve sent you an email with your order details.</p>
+    </div>
+
+    <h4 class="mt-4">Order Summary</h4>
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Qty</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in order.items.all %}
+            <tr>
+                <td>{{ item.product.name }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>Rs. {{ item.price }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{% url 'index' %}" class="btn btn-primary mt-3">Continue Shopping</a>
+</div>
+{% endblock %}

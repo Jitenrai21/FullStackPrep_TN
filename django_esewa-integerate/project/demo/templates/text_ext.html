@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - Welcome{% endblock %}
+
+{% block content %}
+
+
+
+<div class="container py-5">
+        <div class="text-center mb-4">
+            <h2 class="fw-bold text-primary">Upload PDF Resume</h2>
+            <p class="text-muted">Extract structured data from your resume using AI</p>
+        </div>
+
+        <!-- Upload Form -->
+        <div class="card shadow-sm p-4 mb-5">
+            <form action="" method="POST" enctype="multipart/form-data" class="row g-3">
+                {% csrf_token %}
+                <div class="col-md-8">
+                    <input type="file" class="form-control" name="pdf_user" accept="application/pdf" required>
+                </div>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-primary w-100">Upload & Extract</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Extracted Data -->
+        {% if extracted_data %}
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Extracted Resume Details</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>Name:</strong> {{ extracted_data.name }}</li>
+                    <li class="list-group-item"><strong>Address:</strong> {{ extracted_data.address }}</li>
+                    <li class="list-group-item"><strong>Phone:</strong> {{ extracted_data.phone }}</li>
+
+                    <li class="list-group-item">
+                        <strong>Education:</strong>
+                        {% if extracted_data.education %}
+                            <ul class="mt-2">
+                                {% for edu in extracted_data.education %}
+                                    <li>{{ edu }}</li>
+                                {% empty %}
+                                    <li class="text-muted">No education details found</li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <span class="text-muted">No education details found</span>
+                        {% endif %}
+                    </li>
+
+                    <li class="list-group-item">
+                        <strong>Skills:</strong>
+                        {% if extracted_data.skills %}
+                            <span class="badge bg-info text-dark me-1" style="font-size: 0.9em;">
+                                {% for skill in extracted_data.skills %}
+                                    {{ skill }}{% if not forloop.last %}, {% endif %}
+                                {% empty %}
+                                    No skills found
+                                {% endfor %}
+                            </span>
+                        {% else %}
+                            <span class="text-muted">No skills listed</span>
+                        {% endif %}
+                    </li>
+
+                    <li class="list-group-item">
+                        <strong>Projects:</strong>
+                        {% if extracted_data.projects %}
+                            <ul class="mt-2">
+                                {% for project in extracted_data.projects %}
+                                    <li>{{ project }}</li>
+                                {% empty %}
+                                    <li class="text-muted">No projects listed</li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <span class="text-muted">No projects listed</span>
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+
+
+{% endblock %}

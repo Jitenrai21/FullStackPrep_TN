@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %}Payment{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow-lg">
+        <div class="card-header bg-dark text-white">
+            <h4 class="mb-0 text-center">💳 eSewa Payment</h4>
+        </div>
+        <div class="card-body">
+            <form action="{{ test_url }}" method="POST">
+                
+                <div class="mb-3">
+                    <label class="form-label">Amount</label>
+                    <input type="text" name="amount" value="{{ amount }}" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Tax Amount</label>
+                    <input type="text" name="tax_amount" value="{{ tax_amount }}" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Total Amount</label>
+                    <input type="text" name="total_amount" value="{{ total_amount }}" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Transaction UUID</label>
+                    <input type="text" name="transaction_uuid" value="{{ transaction_uuid }}" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Product Code</label>
+                    <input type="text" name="product_code" value="{{ product_code }}" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Product Service Charge</label>
+                    <input type="text" name="product_service_charge" value="{{ product_service_charge }}" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Product Delivery Charge</label>
+                    <input type="text" name="product_delivery_charge" value="{{ product_delivery_charge }}" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Success URL</label>
+                    <input type="text" name="success_url" value="{{ success_url }}" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Failure URL</label>
+                    <input type="text" name="failure_url" value="{{ failure_url }}" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Signed Field Names</label>
+                    <input type="text" name="signed_field_names" value="{{ signed_field_names }}" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Signature</label>
+                    <input type="text" name="signature" value="{{ signature }}" class="form-control" required>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-dark btn-lg px-4">💰 Pay with eSewa</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

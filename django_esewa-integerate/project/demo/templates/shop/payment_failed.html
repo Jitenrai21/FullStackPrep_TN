@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Payment Failed{% endblock %}
+{% block content %}
+<div class="container mt-5 text-center">
+    <div class="alert alert-danger p-4 rounded shadow">
+        <h2>❌ Payment Failed</h2>
+        <p>We couldn’t process your payment for order <strong>#{{ order.id }}</strong>.</p>
+        <p>Please try again or contact support.</p>
+    </div>
+    <a href="{% url 'cart' %}" class="btn btn-warning mt-3">Retry Payment</a>
+</div>
+{% endblock %}
