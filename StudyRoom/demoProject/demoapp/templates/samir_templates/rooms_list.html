@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Rooms</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .room-card { border: 1px solid #ddd; padding: 20px; margin: 10px 0; border-radius: 8px; }
+        .room-type { display: inline-block; padding: 5px 10px; border-radius: 15px; font-size: 12px; }
+        .free { background-color: #d4edda; color: #155724; }
+        .premium { background-color: #fff3cd; color: #856404; }
+        .btn { background-color: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; text-decoration: none; display: inline-block; }
+        .btn:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+    <h1>Available Study Rooms</h1>
+    
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+    
+    {% for room in rooms %}
+        <div class="room-card">
+            <h3>{{ room.name }}</h3>
+            <span class="room-type {{ room.type }}">{{ room.get_type_display }}</span>
+            <p>{{ room.description }}</p>
+            <p><strong>Created by:</strong> {{ room.created_by.username }}</p>
+            <p><strong>Created:</strong> {{ room.created_at|date:"M d, Y" }}</p>
+            <a href="{% url 'room_plan_select' room.id %}" class="btn">Join Room</a>
+        </div>
+        
+    {% empty %}
+        <p>No rooms available yet.</p>
+    {% endfor %}
+
+
+    
+    
+    <br><br>
+    <a href="{% url 'index' %}">← Back to Home</a>
+</body>
+</html>

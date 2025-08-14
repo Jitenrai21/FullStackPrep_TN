@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Authentication - {{ room.name }}</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; text-align: center; }
+        .camera-container { margin: 20px 0; }
+        #video { width: 100%; max-width: 500px; border: 2px solid #ddd; border-radius: 8px; }
+        .btn { background-color: #007bff; color: white; padding: 15px 30px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; margin: 10px; }
+        .btn:hover { background-color: #0056b3; }
+        .btn-success { background-color: #28a745; }
+        .btn-success:hover { background-color: #218838; }
+        .status { margin: 20px 0; font-size: 18px; }
+        .success { color: #28a745; }
+        .error { color: #dc3545; }
+    </style>
+</head>
+<body>
+    <h1>Face Authentication</h1>
+    <p>Please look at the camera for face verification to enter {{ room.name }}</p>
+    
+    <div class="camera-container">
+        <video id="video" autoplay muted></video>
+        <canvas id="canvas" style="display: none;"></canvas>
+    </div>
+    
+    <div class="status" id="status">Click "Start Camera" to begin authentication</div>
+    
+    <button id="startCamera" class="btn">Start Camera</button>
+    <button id="capturePhoto" class="btn" style="display: none;">Capture Photo</button>
+    <button id="verifyFace" class="btn btn-success" style="display: none;">Verify Face</button>
+    
+    <form method="post" id="authForm" style="display: none;">
+        {% csrf_token %}
+        <input type="hidden" name="face_verified" value="true">
+    </form>
+    
+    <br><br>
+    <a href="{% url 'rooms_list' %}">← Back to Rooms</a>
+
+    <script>
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const status = document.getElementById('status');
+        const startCameraBtn = document.getElementById('startCamera');
+        const captureBtn = document.getElementById('capturePhoto');
+        const verifyBtn = document.getElementById('verifyFace');
+        const authForm = document.getElementById('authForm');
+        
+        let stream = null;
+        
+        startCameraBtn.addEventListener('click', async () => {
+            try {
+                stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                video.srcObject = stream;
+                status.textContent = 'Camera started. Position your face in the frame and click "Capture Photo"';
+                status.className = 'status';
+                startCameraBtn.style.display = 'none';
+                captureBtn.style.display = 'inline-block';
+            } catch (err) {
+                status.textContent = 'Error accessing camera. Please allow camera access.';
+                status.className = 'status error';
+            }
+        });
+        
+        captureBtn.addEventListener('click', () => {
+            const context = canvas.getContext('2d');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            context.drawImage(video, 0, 0);
+            
+            // Stop camera
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+            }
+            video.style.display = 'none';
+            
+            status.textContent = 'Photo captured! Click "Verify Face" to complete authentication.';
+            status.className = 'status success';
+            captureBtn.style.display = 'none';
+            verifyBtn.style.display = 'inline-block';
+        });
+        
+        verifyBtn.addEventListener('click', () => {
+            // In a real implementation, you would send the captured image to your face recognition API
+            // For now, we'll simulate successful verification
+            status.textContent = 'Face verification successful! Redirecting to room...';
+            status.className = 'status success';
+            
+            setTimeout(() => {
+                authForm.submit();
+            }, 2000);
+        });
+    </script>
+</body>
+</html>

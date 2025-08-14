@@ -4,4 +4,28 @@
 
 {% block content %}
 
+<!-- i have added this to see my content in home page : Samir Dahal -->
+
+<div style="text-align: center; padding: 50px;">
+    <h1>Welcome to StudyRoom Platform</h1>
+    <p>Join study rooms and enhance your learning experience!</p>
+    
+    <div style="margin: 30px 0;">
+        <a href="{% url 'rooms_list' %}" style="background-color: #007bff; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-size: 18px;">
+            View Available Rooms
+        </a>
+    </div>
+    
+    <div style="max-width: 600px; margin: 0 auto; text-align: left;">
+        <h3>Features:</h3>
+        <ul>
+            <li>🆓 <strong>Free Rooms:</strong> Basic access with face authentication</li>
+            <li>💎 <strong>Premium Rooms:</strong> AI chatbot, voice features, and more</li>
+            <li>🔒 <strong>Secure Access:</strong> Face verification for all rooms</li>
+            <li>📚 <strong>Study Materials:</strong> Access shared resources and documents</li>
+        </ul>
+    </div>
+</div>
+<!-- : Samir Dahal -->
+
 {% endblock %}
