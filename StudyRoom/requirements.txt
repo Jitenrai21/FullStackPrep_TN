@@ -1,1 +1,9 @@
-django
+# Django and core dependencies
+Django==5.2.5
+asgiref==3.9.1
+sqlparse==0.5.3
+
+# Image processing (for face_image field)
+Pillow==11.3.0
+numpy==2.3.2
+
